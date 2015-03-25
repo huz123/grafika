@@ -156,7 +156,12 @@ public class TextureViewCanvasActivity extends Activity {
                     // reason the system doesn't have access to the previous buffer.
                     dirty = new Rect(0, mHeight * 3 / 8, mWidth, mHeight * 5 / 8);
                 }
-                Canvas canvas = surface.lockCanvas(dirty);
+                Canvas canvas = null;
+                try {
+                    canvas = surface.lockCanvas(dirty);
+                } catch (Surface.OutOfResourcesException e) {
+                    e.printStackTrace();
+                }
                 if (canvas == null) {
                     Log.d(TAG, "lockCanvas() failed");
                     break;

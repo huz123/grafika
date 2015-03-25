@@ -79,7 +79,12 @@ public class ColorBarActivity extends Activity implements SurfaceHolder.Callback
      * Draw color bars with text labels.
      */
     private void drawColorBars(Surface surface) {
-        Canvas canvas = surface.lockCanvas(null);
+        Canvas canvas = null;
+        try {
+            canvas = surface.lockCanvas(null);
+        } catch (Surface.OutOfResourcesException e) {
+            e.printStackTrace();
+        }
         try {
             // TODO: if the device is in portrait, draw the color bars horizontally.  Right
             // now this only looks good in landscape.

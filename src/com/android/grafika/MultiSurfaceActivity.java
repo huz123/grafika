@@ -291,7 +291,12 @@ public class MultiSurfaceActivity extends Activity implements SurfaceHolder.Call
         paint.setStyle(Paint.Style.FILL);
         paint.setShadowLayer(radius / 4 + 1, 0, 0, Color.RED);
 
-        Canvas canvas = surface.lockCanvas(null);
+        Canvas canvas = null;
+        try {
+            canvas = surface.lockCanvas(null);
+        } catch (Surface.OutOfResourcesException e) {
+            e.printStackTrace();
+        }
         try {
             Log.v(TAG, "drawCircleSurface: isHwAcc=" + canvas.isHardwareAccelerated());
             canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
@@ -311,7 +316,12 @@ public class MultiSurfaceActivity extends Activity implements SurfaceHolder.Call
         paint.setColor(Color.WHITE);
         paint.setStyle(Paint.Style.FILL);
 
-        Canvas canvas = surface.lockCanvas(null);
+        Canvas canvas = null;
+        try {
+            canvas = surface.lockCanvas(null);
+        } catch (Surface.OutOfResourcesException e) {
+            e.printStackTrace();
+        }
         try {
             Trace.beginSection("drawBouncingCircle");
             Trace.beginSection("drawColor");

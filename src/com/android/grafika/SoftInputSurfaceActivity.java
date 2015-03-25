@@ -256,7 +256,12 @@ public class SoftInputSurfaceActivity extends Activity {
      * There's no way to set the time stamp.
      */
     private void generateFrame(int frameNum) {
-        Canvas canvas = mInputSurface.lockCanvas(null);
+        Canvas canvas = null;
+        try {
+            canvas = mInputSurface.lockCanvas(null);
+        } catch (Surface.OutOfResourcesException e) {
+            e.printStackTrace();
+        }
         try {
             int width = canvas.getWidth();
             int height = canvas.getHeight();
